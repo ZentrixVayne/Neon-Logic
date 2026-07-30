@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SynapseX</title>
     
+    <!-- Inline SVG Favicon to prevent 404 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='black'/%3E%3Cpath d='M30 50 L50 30 L70 50 L50 70 Z' fill='white'/%3E%3C/svg%3E" />
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -33,13 +36,17 @@
       }
     </script>
 
-    <!-- React & ReactDOM UMD -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Framer Motion UMD -->
-    <script src="https://unpkg.com/framer-motion@11.18.2/dist/framer-motion.js"></script>
-    
+    <!-- Import Map for ES Modules -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+        "framer-motion": "https://esm.sh/framer-motion@11.18.2?deps=react@18.3.1"
+      }
+    }
+    </script>
+
     <!-- Babel for Transpiling JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
@@ -69,10 +76,10 @@
 <body>
     <div id="root"></div>
 
-    <script type="text/babel" data-presets="react">
-        const { useState, useEffect, useRef } = React;
-        const { motion, useScroll, useSpring, useTransform, useMotionTemplate, AnimatePresence } = window.Motion || window.FramerMotion || {};
-        const { createRoot } = ReactDOM;
+    <script type="text/babel" data-type="module" data-presets="react">
+        import React, { useState, useEffect, useRef } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { motion, useScroll, useSpring, useTransform, useMotionTemplate, AnimatePresence } from 'framer-motion';
 
         // --- Video URLs ---
         const VIDEOS = {
